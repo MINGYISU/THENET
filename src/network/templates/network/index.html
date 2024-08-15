@@ -1,0 +1,60 @@
+{% extends "network/layout.html" %}
+
+{% load custom_tags %}
+
+{% block body %}
+    <form>
+        {% csrf_token %}
+    </form>
+
+    <div class="feed-container">
+        
+        {% for post in posts %}
+
+            <div class="post-box">
+                <div class="post-header">
+                    <span class="poster-name">
+                        <strong>
+                            <a href="{% url 'profile' post.poster.id %}" >@{{ post.poster.username }}</a>
+                        </strong>
+                    </span>
+                </div>
+
+                <div class="post-content">
+                    <p>{{ post.content }}</p>
+                </div>
+
+                <div class="post-meta">
+                    <span class="post-time">{{ post.time }}</span>
+                </div>
+
+                <div class="post-actions">
+                    {% if user.is_authenticated %}
+                        <button id="like_btn" data-postid="{{ post.id }}" data-url="{% url 'like' %}">
+                            <span class="like-section">
+                                <span id="n_like{{ post.id }}">
+                                    {% is_liking post user as liking %}
+                                    {% if not liking %}
+                                        ❤️ 
+                                    {% else %}
+                                        💔 
+                                    {% endif %}{{ post.likes }}
+                                </span>
+                            </span>
+                        </button>
+                    {% else %}
+                        <span class="like-section">
+                            <a href="{% url 'login' %}">❤️ {{ post.likes }}</a>
+                        </span>
+                    {% endif %}
+                        
+                    
+                    <span class="comment-section">Comment</span>
+                </div>
+
+            </div>
+        {% empty %}
+            <h1>No posts here.</h1>
+        {% endfor %}
+    </div>
+{% endblock %}

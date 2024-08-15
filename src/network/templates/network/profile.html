@@ -1,0 +1,129 @@
+{% load static %}
+
+{% load custom_tags %}
+
+{% comment %}
+    {% get_len_posts watching as num_posts %}
+    {% get_len_flwers watching as num_flwers %}
+    {% get_len_flwings watching as num_flwings %}
+{% endcomment %}
+
+{% get_posts_for watching as posts_for_watching %}
+{% is_myself watching user as myself %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile: {{ watching.username }}</title>
+    <link href="{% static 'network/profile_styles.css' %}" rel="stylesheet">
+    <script src="{% static 'network/js/flw_btn.js' %}" defer></script>
+    <script src="{% static 'network/js/like_btn.js' %}" defer></script>
+</head>
+<body>
+    <form>
+        {% csrf_token %}
+    </form>
+
+    <div class="nav-links">
+        <span class="username">@{{ user.username }}</span>
+        <a href="{% url 'index' %}">All Posts</a>
+        <a href="{% url 'newpost' %}">New Post</a>
+        
+        {% if user.is_authenticated %}
+            <a href="{% url 'following' %}">Following</a>
+            <a href="{% url 'logout' %}">Log Out</a>
+        {% else %}
+            <a href="{% url 'login' %}">Log In</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </div>
+
+    <div class="profile-header">
+        <h1>@{{ watching.username }}</h1>
+        <p>Joined {{ watching.joined_at.month }}-{{ watching.joined_at.year }} </p>
+    </div>
+
+    <div class="profile-stats">
+        <div>
+            <h3>{{ watching.pts }}</h3>
+            <p>Posts</p>
+        </div>
+        <div>
+            <h3 id="n_flwers">{{ watching.flwers }}</h3>
+            <p>Followers</p>
+        </div>
+        <div>
+            <h3>{{ watching.flwings }}</h3>
+            <p>Following</p>
+        </div>
+    </div>
+
+    <!-- Profile Actions -->
+    <div class="profile-actions">
+        {% if not myself %}
+            {% is_flwing watching user as flwing %}
+            
+                <button class="follow-btn" id="flw_btn" data-idolid="{{ watching.id }}" data-url="{% url 'togflw' %}">
+                    {% if not flwing %}
+                        Follow
+                    {% else %}
+                        Unfollow
+                    {% endif %}
+                </button>
+        {% else %}
+            <button class="edit-btn">Edit Profile</button>
+        {% endif %}
+    </div>
+
+    <!-- Tabs for different sections -->
+    <div class="tabs">
+        <button class="active">Posts</button>
+        <button>About</button>
+        <button>Followers</button>
+        <button>Following</button>
+    </div>
+
+    <!-- Profile Content -->
+    <div class="feed-container">
+        
+        {% for post in posts_for_watching %}
+
+            <div class="post-box">
+                <div class="post-header">
+                    <span class="poster-name"><strong>{{ post.poster.username }}</strong></span>
+                </div>
+
+                <div class="post-content">
+                    <p>{{ post.content }}</p>
+                </div>
+
+                <div class="post-meta">
+                    <span class="post-time">{{ post.time }}</span>
+                </div>
+
+                <div class="post-actions">
+                    <button id="like_btn" data-postid="{{ post.id }}" data-url="{% url 'like' %}">
+                        <span class="like-section">
+                            <span id="n_like{{ post.id }}">
+                                {% is_liking post user as liking %}
+                                {% if not liking %}
+                                    ❤️ 
+                                {% else %}
+                                    💔 
+                                {% endif %}
+                                {{ post.likes }}</span>
+                        </span>
+                    </button>
+                    <span class="comment-section">Comment</span>
+                </div>
+
+            </div>
+        {% empty %}
+            <h1>{{ watching.username }} hasn't posted anything yet!</h1>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

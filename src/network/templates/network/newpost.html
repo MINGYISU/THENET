@@ -1,0 +1,21 @@
+{% extends "network/layout.html" %}
+
+{% block title %}New Post{% endblock %}
+
+{% block demo %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Posting as <strong>@{{ user.username }}</strong></a>
+{% endblock %}
+
+{% block body %}
+
+    <div class="new-post-container">
+        <form action="{% url 'newpost' %}" method="post">
+            {% csrf_token %}
+            
+            <label for="content" class="new-post-label">New Post</label>
+            <textarea id="content" name="content" class="new-post-textarea" placeholder="What's on your mind?"></textarea>
+            <button type="submit" class="new-post-button">Post</button>
+    </div>
+
+{% endblock %}

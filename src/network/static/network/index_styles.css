@@ -1,0 +1,125 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+/* Container for the entire feed */
+.feed-container {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Individual post box */
+.post-box {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Post header styling */
+.post-header {
+    margin-bottom: 10px;
+}
+
+.post-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.poster-name {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* Post content styling */
+.post-content {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+/* Post meta information (like time) */
+.post-meta {
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 10px;
+}
+
+/* Post actions (like, comment) */
+.post-actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+.like-section, .comment-section {
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.like-section:hover, .comment-section:hover {
+    text-decoration: underline;
+}
+
+.form-group input,
+.form-group textarea {
+    flex: 1;
+}
+
+/* Container for the new post form */
+.new-post-container {
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Label for the new post */
+.new-post-label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Textarea for the new post content */
+.new-post-textarea {
+    width: 100%;
+    height: 80px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1rem;
+    resize: vertical;
+    margin-bottom: 10px;
+}
+
+/* Submit button */
+.new-post-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.new-post-button:hover {
+    background-color: #0056b3;
+}
