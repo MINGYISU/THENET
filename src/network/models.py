@@ -38,7 +38,7 @@ class Post(models.Model):
     
 
     def __str__(self):
-        return f"{self.poster.username}"
+        return f"{self.poster.username}: {self.content}"
 
     def add_likes(self):
         self.likes += 1

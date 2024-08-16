@@ -85,6 +85,8 @@ def create(request):
     user = request.user
     if request.method == "POST":
         content = request.POST["content"]
+        if not content:
+            raise Http404("Empty content!")
         post = Post(poster=user, content=content)
         post.save()
         user.add_pts()
@@ -201,6 +203,10 @@ def edit_post(request, identity):
 
     data = json.loads(request.body)
     updated = data.get("updated")
+
+    # if empty content, reject request
+    if not updated:
+        return JsonResponse({"success": False, "EMPTY": True})
     to_update.content = updated
     to_update.save()
 

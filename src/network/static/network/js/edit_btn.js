@@ -61,6 +61,8 @@ document.addEventListener("DOMContentLoaded", function() {
                         } else {
                             if (data.NOTMYSELF) {
                                 alert("Server Rejected your request because you are not allowed to edit other's post!")
+                            } else if (data.EMPTY) {
+                                alert("Server Rejected your request because the content is empty!")
                             } else {
                                 alert("Failed!")
                             }
