@@ -164,3 +164,19 @@ def like(request):
 
     return JsonResponse({"success": False}, status=403)
 
+@login_required
+@require_POST
+def edit_post(request, identity):
+    user = request.user
+    to_update = Post.objects.get(id=identity)
+
+    if user.id != to_update.poster.id:
+        return JsonResponse({"success": False, "NOTMYSELF": True})
+
+    data = json.loads(request.body)
+    updated = data.get("updated")
+    to_update.content = updated
+    to_update.save()
+
+    return JsonResponse({"success": True, "updated": to_update.content})
+

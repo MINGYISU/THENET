@@ -16,10 +16,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile: {{ watching.username }}</title>
+    <title>User Profile: @{{ watching.username }}</title>
     <link href="{% static 'network/profile_styles.css' %}" rel="stylesheet">
     <script src="{% static 'network/js/flw_btn.js' %}" defer></script>
     <script src="{% static 'network/js/like_btn.js' %}" defer></script>
+    <script src="{% static 'network/js/edit_btn.js' %}" defer></script>
 </head>
 <body>
     <form>
@@ -92,10 +93,18 @@
 
             <div class="post-box">
                 <div class="post-header">
-                    <span class="poster-name"><strong>{{ post.poster.username }}</strong></span>
+                    <span class="poster-name"><strong>@{{ post.poster.username }}</strong></span>
                 </div>
 
-                <div class="post-content">
+                {% if myself %}
+                    <div class="post-actions">
+                        <button id="edit_btn" data-postid="{{ post.id }}" data-url="{% url 'edit' post.id %}">
+                            Edit
+                        </button>
+                    </div>
+                {% endif %}
+
+                <div class="post-content" id="ct{{ post.id }}">
                     <p>{{ post.content }}</p>
                 </div>
 
