@@ -9,7 +9,7 @@
 
     <div class="feed-container">
         
-        {% for post in posts %}
+        {% for post in page_obj %}
 
             <div class="post-box">
                 <div class="post-header">
@@ -56,5 +56,23 @@
         {% empty %}
             <h1>No posts here.</h1>
         {% endfor %}
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="{% url 'index' %}?page=1">&laquo; first</a>
+                    <a href="{% url 'index' %}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+        
+                {% if page_obj.has_next %}
+                    <a href="{% url 'index' %}?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="{% url 'index' %}?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
     </div>
 {% endblock %}

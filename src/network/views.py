@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.http import Http404, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from django.core.paginator import Paginator
 # from django.views.decorators.csrf import csrf_exempt
 
 from .models import User, Post, Follower, Like
@@ -13,8 +14,16 @@ from .models import User, Post, Follower, Like
 import json
 
 def index(request):
+    posts = Post.objects.all()[::-1]
+    paginator = Paginator(posts, 10)
+
+    # by default, this url is returning the first page of the paginator
+    # else, if user is requesting a specific page, return that page
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+    
     return render(request, "network/index.html", {
-        "posts": Post.objects.all()[::-1]
+        "page_obj": page_obj
     })
 
 
@@ -89,8 +98,17 @@ def create(request):
 
 def show_profile(request, identity):
     user = get_object_or_404(User, id=identity)
+    posts = Post.objects.filter(poster=user)[::-1]
+    paginator = Paginator(posts, 3)
+
+    # by default, this url is returning the first page of the paginator
+    # else, if user is requesting a specific page, return that page
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+
     return render(request, "network/profile.html", {
-        "watching": user
+        "watching": user, 
+        "page_obj": page_obj
     })
 
 @login_required
@@ -98,9 +116,17 @@ def show_flwing(request):
     user = request.user
     idols = Follower.objects.filter(fan=user)
     idols = [ele.idol for ele in idols]
+    idols = sorted(Post.objects.filter(poster__in=idols), key=lambda x: x.time)
+    paginator = Paginator(idols, 10)
+
+    # by default, this url is returning the last page of the paginator
+    # else, if user is requesting a specific page, return that page
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+
     return render(request, 'network/index.html', {
         "is_flwing_page": True, 
-        "posts": sorted(Post.objects.filter(poster__in=idols), key=lambda x: x.time)
+        "page_obj": page_obj
     })
     
 @login_required
