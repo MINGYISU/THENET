@@ -19,13 +19,14 @@ Real-time updates for likes, comments, and post edits, implemented using JavaScr
 The application is containerized with Docker, ensuring a consistent environment across development and production.
 
 ### Site Administration Page:
-- There is an administration page (~/admin) that allows site managers to easily manage the database such as adding, deleting, and modifying the posts as well as likes and comments. 
+- There is an administration page (https://0.0.0.0:8000/admin) that allows site managers to easily manage the database such as adding, deleting, and modifying the posts as well as likes and comments. 
 - One existing administration account is: username: admin, password: admin
 
 ## Getting Started
 Clone the repository.
 Set up the environment using Docker.
-Run $python manage.py runserver 8000
+Run $docker-compose up
+Go to 0.0.0.0:8000 on your browser
 
 # Credits
 - layout.html: Portions of code were adapted from [CS50’s Web Programming with Python and JavaScript](https://cdn.cs50.net/web/2020/spring/projects/4/network.zip)
