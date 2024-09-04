@@ -29,6 +29,7 @@ Run $python manage.py runserver 8000
 
 # Credits
 - layout.html: Portions of code were adapted from [CS50’s Web Programming with Python and JavaScript](https://cdn.cs50.net/web/2020/spring/projects/4/network.zip)
+
 This project is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) license. This is a human-readable summary of (and not a substitute for) the license. Official translations of this license are available in other languages.
 
 You are free to:
