@@ -23,10 +23,10 @@ The application is containerized with Docker, ensuring a consistent environment 
 - One existing administration account is: username: admin, password: admin
 
 ## Getting Started
-Clone the repository.
-Set up the environment using Docker.
-Run $docker-compose up
-Go to 0.0.0.0:8000 on your browser
+- Clone the repository.
+- Set up the environment using Docker.
+- Run $docker-compose up
+- Go to 0.0.0.0:8000 on your browser
 
 # Credits
 - layout.html: Portions of code were adapted from [CS50’s Web Programming with Python and JavaScript](https://cdn.cs50.net/web/2020/spring/projects/4/network.zip)
